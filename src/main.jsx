@@ -14,70 +14,140 @@ import PostForm from './Components/PostForm/PostForm.jsx'
 import { Home } from './pages/Home.jsx'
 import TweetCard from './Components/TweetCard/TweetCard.jsx'
 
-const router = createBrowserRouter([
+// const router = createBrowserRouter([
+//   {
+//     path: '/', //!root
+//     element: <App/>,
+//     children: [
+//       {
+//          path: '/', //!root
+//          element: <Home/>,
+//       },
+//       {
+//         //!authLayout section 
+//       },
+//       {
+//         path: '/login',
+//         element: (
+//           <ProtectedRoute authentication = {false}>
+//             <Login/>
+//           </ProtectedRoute>
+//         )
+//       },
+//       {
+//         path: '/Signup',
+//         element: (
+//           <ProtectedRoute authentication ={false}>
+//             <Signup/>
+//           </ProtectedRoute>
+//         )
+//       },
+//       {
+//         path: '/profile',
+//         element: (
+//           <ProtectedRoute authentication ={true}>
+//             <Profile/>
+//           </ProtectedRoute>
+//         )
+//       },
+//       {
+//         path: '/tweet',
+//         element: (
+//           <ProtectedRoute authentication ={true}>
+//             <PostForm/>
+//           </ProtectedRoute>
+//         )
+//       },
+//       {
+//         path : '/tweetCard',
+//         element: (
+//           <ProtectedRoute authentication ={true}>
+//             <TweetCard/>
+//           </ProtectedRoute>
+//         )
+//       }
+
+
+//     ]
+
+//   }
+// ],
+// {
+//   basename: "/Twitter_Clone",
+// }
+// )
+
+
+
+// createRoot(document.getElementById('root')).render(
+//   <StrictMode>
+//     <Provider store={store}>
+//       <RouterProvider router ={router}/>
+//     </Provider>
+//   </StrictMode>
+// )
+
+
+
+
+
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/login",
+          element: (
+            <ProtectedRoute authentication={false}>
+              <Login />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/Signup",
+          element: (
+            <ProtectedRoute authentication={false}>
+              <Signup />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/profile",
+          element: (
+            <ProtectedRoute authentication={true}>
+              <Profile />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/tweet",
+          element: (
+            <ProtectedRoute authentication={true}>
+              <PostForm />
+            </ProtectedRoute>
+          ),
+        },
+        {
+          path: "/tweetCard",
+          element: (
+            <ProtectedRoute authentication={true}>
+              <TweetCard />
+            </ProtectedRoute>
+          ),
+        },
+      ],
+    },
+  ],
   {
-    path: '/', //!root
-    element: <App/>,
-    children: [
-      {
-         path: '/', //!root
-         element: <Home/>,
-      },
-      {
-        //!authLayout section 
-      },
-      {
-        path: '/login',
-        element: (
-          <ProtectedRoute authentication = {false}>
-            <Login/>
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/Signup',
-        element: (
-          <ProtectedRoute authentication ={false}>
-            <Signup/>
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/profile',
-        element: (
-          <ProtectedRoute authentication ={true}>
-            <Profile/>
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/tweet',
-        element: (
-          <ProtectedRoute authentication ={true}>
-            <PostForm/>
-          </ProtectedRoute>
-        )
-      },
-      {
-        path : '/tweetCard',
-        element: (
-          <ProtectedRoute authentication ={true}>
-            <TweetCard/>
-          </ProtectedRoute>
-        )
-      }
-
-
-    ]
-
+    basename: "/Twitter_Clone",
   }
-],
-{
-  basename: "/Twitter_Clone",
-}
-)
-
-
+);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
