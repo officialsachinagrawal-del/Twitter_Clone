@@ -70,9 +70,14 @@ const router = createBrowserRouter([
 
     ]
 
-  },
+  }
+],
+{
+  basename: "/Twitter_Clone",
+}
+)
 
-])
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
