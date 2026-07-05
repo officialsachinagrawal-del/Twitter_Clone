@@ -3,7 +3,7 @@ import React, {forwardRef, useId} from 'react'
 const Input = forwardRef(function Input({
     label,
     type = "text",
-    className = " ", 
+  className = "soft-input", 
     ...props
 
 }, ref) {
@@ -11,7 +11,7 @@ const Input = forwardRef(function Input({
 
   return (
     <div>
-    {label && <label className='' htmlFor= {id}>
+    {label && <label className='soft-label' htmlFor= {id}>
                {label}
               </label>
     }

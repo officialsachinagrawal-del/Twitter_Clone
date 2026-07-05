@@ -42,7 +42,7 @@ export class UserProfileService {
                 ],
 
             )
-            console.log("profile created", ans);
+            //console.log("profile created", ans);
             return ans;
 
         } catch (error) {
@@ -91,7 +91,7 @@ export class UserProfileService {
     async getUserProfile() {
         try {
             const GetProfile = await authService.getCurrentUser();
-            console.log(GetProfile);
+            //console.log(GetProfile);
 
             if (GetProfile) {
 
@@ -103,7 +103,7 @@ export class UserProfileService {
                         Query.equal("userId", GetProfile.$id), //! ye id logged in user ki id h 
                     ]
                 )
-                console.log(result)
+                //console.log(result)
                 return result;
 
             }
@@ -119,15 +119,15 @@ export class UserProfileService {
         const file = fileOrPayLoad?.file || fileOrPayLoad;
         const userId = fileOrPayLoad?.userId;
         const permissions = [Permission.read(Role.any())]
-        // console.log(file);
-        // console.log(userId);
+        // //console.log(file);
+        // //console.log(userId);
         try {
             await authService.refreshSession();
 
             const userData = await authService.getCurrentUser();
-            console.log(userData)
+            //console.log(userData)
             if (!userData) {
-                console.log("User NOt authenticated");
+                //console.log("User NOt authenticated");
                 return null;
             }
             if (userId) {

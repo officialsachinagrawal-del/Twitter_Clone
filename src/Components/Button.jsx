@@ -4,13 +4,17 @@ import React from 'react'
     children,
     BtnText,
     type = "button",
-    bgColor = "bg-blue-600",
+    bgColor = "bg-sky-500",
     textColor = "text-white",
     className = "",
     ...props
 }) {
   return (
-    <button type = {type} className= {`px-4 py-2 rounded-lg h-10.5 mt-7.5 ${bgColor} ${textColor} ${className}`} {...props} >
+    <button
+      type={type}
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold shadow-[0_12px_30px_rgba(14,165,233,0.22)] ${bgColor} ${textColor} ${className}`}
+      {...props}
+    >
         {children || BtnText}
     </button>
   )

@@ -23,7 +23,12 @@ function LogoutBtn() {
         }
     }
   return (
-    <button onClick={logoutHandler} cursor = "pointer">LogoutBtn</button>
+        <button
+            onClick={logoutHandler}
+            className="w-full rounded-full border border-slate-200 bg-white/80 px-4 py-3 text-left text-sm font-semibold text-slate-700 hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700"
+        >
+            Logout
+        </button>
   )
 }
 

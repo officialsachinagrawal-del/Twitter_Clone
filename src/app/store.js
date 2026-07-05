@@ -17,15 +17,3 @@ export default store;
 
 
 
-    // useEffect(() => async() =>{ 
-
-    //      setProfileImage(ProfileImage)
-
-    //       const result = await userProfileServices.getUserProfile();
-    //       const profileData = result?.documents?.[0];
-    //       setprofile(profileData);
-
-    //       console.log(ProfileImage)
-          
-
-    // },[ProfileImage,TweetImage]);

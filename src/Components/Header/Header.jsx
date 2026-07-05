@@ -53,11 +53,11 @@ function Header() {
       slug: '/LogoutBtn',
       active: !authStatus
     },
-    {
-      name: "TweetCard",
-      slug: '/tweetCard',
-      active: authStatus,
-    }
+    // {
+    //   name: "TweetCard",
+    //   slug: '/tweetCard',
+    //   active: authStatus,
+    // }
 
     // {
     //   name: 'All Posts',
@@ -77,47 +77,54 @@ function Header() {
 
   return (
    
-    <header className='w-64 min-h-screen fixed left-0 top-0 border-r bg-white'>
+    <header className='relative w-full border-b border-white/60 bg-white/78 p-4 shadow-[0_20px_50px_rgba(15,23,42,0.08)] backdrop-blur-xl lg:fixed lg:left-0 lg:top-0 lg:z-20 lg:h-screen lg:w-72 lg:border-r lg:border-b-0 lg:p-5'>
       {/* <Container> */}
-        <nav className='flex'>
+        <nav className='flex h-full flex-col gap-6'>
           {/* Logo section*/}
-          <div className='mr-4 '>
+          <div>
              <Link to ='/'>
                 <Logo   />    
              </Link>
-              
           </div>
          {/* next header elements*/}
-          <ul className='flex flex-col gap-3 mt-8'>
-            {navItems.map((item) =>(
-          
-              item.active ? (
-                <li key = {item.name}>
-                   
-                   {/*all navigation logic button me hoga */}
-                   <button
-                      onClick={() =>{ console.log("button clicked")
-                         item.name == "Tweet" ? dispatch(openDialog())  : navigate(item.slug)}}
-                         className='w-full text-left px-4 py-3 rounded-full hover:bg-gray-100 cursor-pointer'
-                  >
-                      {item.name} 
+          <div className='rounded-3xl border border-slate-200 bg-slate-50/70 p-3'>
+            <p className='px-2 pb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400'>Menu</p>
+            <ul className='flex flex-col gap-2'>
+              {navItems.map((item) =>(
+            
+                item.active ? (
+                  <li key = {item.name}>
+                     
+                     {/*all navigation logic button me hoga */}
+                     <button
+                        onClick={() =>{ console.log("button clicked")
+                           item.name == "Tweet" ? dispatch(openDialog())  : navigate(item.slug)}}
+                           className='flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-sm font-semibold text-slate-700 hover:bg-white hover:text-sky-700 cursor-pointer'
+                    >
+                        <span>{item.name}</span>
+                        <span className='text-xs text-slate-400'>→</span>
 
-                   </button>
-                   
+                     </button>
+                     
 
-                </li>
-              ) :  null
-              ))}
-              
-              {/*for checking agr login h to logout btn dikhae*/}
-              {authStatus && (
-                <li>
-                  <LogoutBtn/>
+                  </li>
+                ) :  null
+                ))}
+                
+                {/*for checking agr login h to logout btn dikhae*/}
+                {authStatus && (
+                  <li>
+                    <LogoutBtn/>
 
-                </li>
-              )}
+                  </li>
+                )}
+            </ul>
+          </div>
 
-          </ul>
+          <div className='mt-auto rounded-3xl bg-slate-900 px-4 py-4 text-white shadow-[0_20px_40px_rgba(15,23,42,0.18)]'>
+            <p className='text-xs uppercase tracking-[0.22em] text-sky-200'>Tip</p>
+            <p className='mt-2 text-sm leading-6 text-slate-200'>Post with images, open a tweet, and keep the feed clean with the floating composer.</p>
+          </div>
 
 
         </nav>

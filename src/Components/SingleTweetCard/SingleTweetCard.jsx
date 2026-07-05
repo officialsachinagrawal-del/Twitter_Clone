@@ -9,23 +9,26 @@ import {  useSelector } from "react-redux";
 import userProfileServices from "../../Services/appwrite/user.js";
 import tweetServices from "../../Services/appwrite/tweet.js";
 import { Link, useNavigate } from "react-router";
+import { BsBoxArrowLeft } from "react-icons/bs";
+// import { setTweetImage, setTweetContent } from "../../features/authSlice";
 
 
-
-function TweetCard({ content,
+function SingleTweetCard({ content,
   tweetImageId,
   userId,
-  // likeCount,
-  // commentCount,
+//   likeCount,
+//   commentCount,
   $createdAt, }) {
+    
 
 
 
   const [profile, setprofile] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
   const [tweetImage, setLocalTweetImage] = useState(null);
-
+  
   const navigate = useNavigate();
+
 
 
 
@@ -35,22 +38,40 @@ function TweetCard({ content,
   );
 
 
+  //!getting tweet Image through redux 
+  // const TweetImage = useSelector(
+  //   (state) => state.auth.tweetImage,
+  // )
+  // //console.log("my tweet image url:", TweetImage);
+
+  // const TweetContent = useSelector(
+  //   (state) => state.auth.tweetContent,
+  // )
+  // //console.log("my tweet content:", TweetContent);
+
+  // const imageUrl = tweetImage;
+  // //console.log("my tweet Image ur", imageUrl)
+  // //console.log("my tweetImage id", tweetImageId);
+  //! handling profile image and profile data
+
+
+  //!handling tweetImage
+
+
 
   useEffect(() => {
     const fetchdata = async () => {
       try {
 
-      // //console.log("TweetCard userId prop =", userId);
-      //console.log("TweetImageId", tweetImageId);
+
 
       if (!userId) {
-        //console.warn("TweetCard: userId is null/undefined, skipping profile fetch");
         return;
       }
 
       const profileResult = await userProfileServices.getProfileByUserId(userId);
       const profileData = profileResult?.documents?.[0];
-      //console.log("my profile data in tweetCard", profileData);
+   
 
       if (profileData) {
         setprofile(profileData);
@@ -59,25 +80,12 @@ function TweetCard({ content,
           const url = await userProfileServices.getProfileImagePreview(
             profileData.profileImageId
           );
-          //console.log("my profile url " , url)
+
           setProfileImage(url);
         }
       }
 
-      // const tweetResult = await tweetServices.getUserSingleTweet();
-      // const tweetData = tweetResult?.documents[0];
-      // //console.log("fetched tweet", tweetData);
-
-      // //! ye kaam kr rha h ki tweetCard ko refresh krne pe data delete n ho 
-      // if (tweetData) {
-      //   dispatch(setTweetContent(tweetData.content));
-      //   if (tweetData.tweetImageId) {
-      //     const Url = await tweetServices.getUserTweetImagePreview(tweetData.tweetImageId);
-      //     dispatch(setTweetImage(Url));
-      //   } else {
-      //     dispatch(setTweetImage(null));
-      //   }
-      // }
+      
 
       if (tweetImageId) {
         const url = await tweetServices.getUserTweetImagePreview(tweetImageId)
@@ -96,82 +104,90 @@ function TweetCard({ content,
     fetchdata();
   }, [userId, tweetImageId]);
 
+
+
+
+
+
+
   return (
     
-    <article className="surface card-hover mb-4 overflow-hidden rounded-[1.75rem] border border-slate-200 p-5"   >
+    
+    <div className="border-b border-gray-700 p-4 hover:bg-gray-50 transition w-2xl "   >
       {" "}
-      <Link to={'/singleTweetCard'}>
+     
 
       <div className="flex gap-3">
         {" "}
         {/* Profile Image */}{" "}
-
+        <button onClick={() => navigate('/') } className="top-0 cursor-pointer size-1.5 left-1.5"> <BsBoxArrowLeft /> </button> 
         <div>
+            
           {" "}
-
           <Link to={'/profile'}>
-          <img src={profileImage} className="h-12 w-12 rounded-full object-cover ring-4 ring-sky-50" />
+          <img src={profileImage} className="rounded-full h-12 w-12 object-cover left-3.5"/>
           </Link>
-
           {" "}
         </div>{" "}
         {/* Tweet Content */}{" "}
         <div className="flex-1">
           {" "}
           {/* Header */}{" "}
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2">
+            
             {" "}
-            <h3 className="font-semibold text-slate-900">{profile?.name}</h3>{" "}
-            <span className="text-slate-500"> @{profile?.username} </span>{" "}
-            <span className="stat-chip">{$createdAt?.split("T")[0]}</span>{" "}
-            <button className="ml-auto rounded-full p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+            <h3 className="font-bold text-lg">{profile?.name}</h3>{" "}
+            <span className="text-gray-500"> @{profile?.username} </span>{" "}
+            <span className="text-gray-500">·</span>{" "}
+            <span className="text-gray-500">{$createdAt?.split("T")[0]}</span>{" "}
+            <button className="ml-auto">
               {" "}<RxHamburgerMenu />
               {/* <MoreHorizontal size={20} />{" "} */}
             </button>{" "}
           </div>{" "}
           {/* Tweet Text */}{" "}
-          <p className="mt-3 text-[0.98rem] leading-7 text-slate-700">
+          <p className="mt-2 text-gray-800">
             {" "}
             {content || "This is a sample tweet content."}{" "}
           </p>{" "}
           {/* Tweet Image */}{" "}
-          <div className="mt-4 overflow-hidden rounded-3xl border border-slate-200 bg-slate-50">
+          <div className="mt-3">
             {" "}
             {tweetImage && (
               <img
                 src={tweetImage}
                 alt="tweet"
-                className="h-72 w-full object-cover"
+                className="rounded-2xl max-w-md object-cover border border-red-50 w-full h-60"
               />)}{" "}
           </div>{" "}
           {/* Actions */}{" "}
-          <div className="mt-4 flex justify-between text-slate-500">
+          <div className="flex justify-between mt-4 text-gray-500">
             {" "}
-            <button className="flex items-center gap-2 rounded-full px-3 py-2 hover:bg-sky-50 hover:text-sky-600 cursor-pointer " onClick={() => navigate('/comment')}>
+            <button className="hover:text-blue-500">
               {" "}<FaRegCommentDots />
               {/* <MessageCircle size={22} />{" "} */}
             </button>{" "}
-            <button className="flex items-center gap-2 rounded-full px-3 py-2 hover:bg-emerald-50 hover:text-emerald-600">
+            <button className="hover:text-green-500">
               {" "}<FaRetweet />
               {/* <Repeat2 size={22} />{" "} */}
             </button>{" "}
-            <button className="flex items-center gap-2 rounded-full px-3 py-2 hover:bg-rose-50 hover:text-rose-500">
+            <button className="hover:text-pink-500">
               {" "}<FaRegHeart />
               {/* <Heart size={22} />{" "} */}
             </button>{" "}
-            <button className="flex items-center gap-2 rounded-full px-3 py-2 hover:bg-sky-50 hover:text-sky-600">
+            <button className="hover:text-blue-500">
               {" "}<CiShare2 />
               {/* <Share size={22} />{" "} */}
             </button>{" "}
-            <button className="flex items-center gap-2 rounded-full px-3 py-2 hover:bg-sky-50 hover:text-sky-600">
+            <button className="hover:text-blue-500">
               {" "}<MdOutlineFileDownload />
               {/* <BarChart2 size={22} />{" "} */}
             </button>{" "}
           </div>{" "}
         </div>{" "}
       </div>{" "}
-      </Link>
-    </article>
+     
+    </div>
   );
 }
-export default TweetCard;
+export default SingleTweetCard;

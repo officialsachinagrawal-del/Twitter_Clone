@@ -43,21 +43,23 @@ function App() {
  
 
   return !loading?
-  <div className="flex min-h-screen">
-    <div className="w-64">
+  <div className="app-shell">
+    <div className="page-frame flex min-h-screen flex-col gap-6 lg:flex-row lg:pl-72">
       <Header/>  {/* //! left side bar */}
       <PostForm/>
-     </div>
-      <main className="flex-1">
-        {/* <div className=""> */}
+        <main className="flex-1">
+          {/* <div className=""> */}
 
-          <Outlet/> {/* //! home Feed*/}
-        {/* </div>*/}
-      </main> 
-      {/*<div>
-      //! Right sidebar}
-       <RightPart className="w-800 border-l border-gray-300"/>
-    </div>*/}
+            <div className="feed-column">
+              <Outlet/> {/* //! home Feed*/}
+            </div>
+          {/* </div>*/}
+        </main>
+        {/*<div>
+        //! Right sidebar}
+         <RightPart className="w-800 border-l border-gray-300"/>
+      </div>*/}
+    </div>
   </div>
   : null;
 

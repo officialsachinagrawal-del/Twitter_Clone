@@ -91,8 +91,8 @@ export class TweetServices {
 
         }
     }
-
-    async getUserSingleTweet() {
+    //! user ki latest tweet ko get knre ke lie kaam aa rha h 
+    async getUserSingleTweet(){
         try {
 
             const getTweet = await authService.getCurrentUser();
@@ -117,11 +117,32 @@ export class TweetServices {
         }
 
     }
+
+    //! jis bhi tweet pe click ho us tweet ki datail nikal jaae
+    async getTweetById(tweetId){
+        try {
+
+            const tweetData = await this.databases.getDocument(
+                conf.appwriteDatabaseId,
+                conf.appwritetweetId,
+                tweetId,
+            )
+            return tweetData;
+            
+        } catch (error) {
+            console.log("Error occuring while getting single tweet", error.message)
+            
+        }
+    }
     async getUserAllTweets() {
         try {
             return this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwritetweetId,
+                [
+                    Query.orderDesc("$createdAt"),
+                    Query.limit(100),
+                ]
             )
 
 
@@ -137,6 +158,7 @@ export class TweetServices {
     //? Upload
     async uploadUserTweetImage(fileorPayLoad) {
         const file = fileorPayLoad?.file || fileorPayLoad;
+        console.log(file.size/1024/1024, "mb")
         const userId = fileorPayLoad?.userId;
         const permissions = [Permission.read(Role.any())];
 
